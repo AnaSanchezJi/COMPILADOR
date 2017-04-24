@@ -1,0 +1,6 @@
+
+reference Programa2 
+program Programa1 START
+
+define int variable1, variable2;
+defina text txt1, txt2;
