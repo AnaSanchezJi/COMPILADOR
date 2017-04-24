@@ -205,7 +205,7 @@ public class EntornoGrafico extends javax.swing.JFrame {
         Compilado c2 = new Compilado(); 
         c2.cargaLexemas(2);
         
-        File archivo = new File("C:\\Users\\Pablo\\Documents\\NetBeansProjects\\AnalizadorLex\\file.out"); 
+        File archivo = new File("C:\\Users\\Pablo\\Desktop\\AnalizadorLex\\file.out"); 
         try{
             BufferedReader leer=new BufferedReader(new FileReader(archivo));
             String linea=leer.readLine();
