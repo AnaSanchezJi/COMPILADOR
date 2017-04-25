@@ -92,6 +92,8 @@ ESPACIO=" "
 TABULADOR=\t
 SALTO=\n|\r|\r\n
 COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP_COMENTARIO}
+
+
 //fin declaraciones
 
 /* Seccion de reglas lexicas */
@@ -104,7 +106,14 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+
 "create"   {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"CREATE",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"CREATE"   {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"CREATE",yyline,yycolumn);
     tokens.add(t);
@@ -116,7 +125,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"BEHAVIOUR"   {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"BEHAVIOUR",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "destroy"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"DESTROY",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"DESTROY"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"DESTROY",yyline,yycolumn);
     tokens.add(t);
@@ -128,7 +149,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"DECIMAL"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"DECIMAL",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "table"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"TABLE",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"TABLE"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"TABLE",yyline,yycolumn);
     tokens.add(t);
@@ -140,7 +173,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"SWITCH"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"SWITCH",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "set"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"SET",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"SET"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"SET",yyline,yycolumn);
     tokens.add(t);
@@ -152,7 +197,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"BUILDING"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"BUILDING",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "text"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"TEXT",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"TEXT"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"TEXT",yyline,yycolumn);
     tokens.add(t);
@@ -161,6 +218,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
 "exit"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"EXIT",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"EXIT"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"EXIT",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+
+"REFERENCE"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"REFERENCE",yyline,yycolumn);
     tokens.add(t);
     return t;
 }
@@ -176,7 +246,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"CASE"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"CASE",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "if"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"IF",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"IF"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"IF",yyline,yycolumn);
     tokens.add(t);
@@ -188,7 +270,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"VIRUS"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"VIRUS",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "time"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"TIME",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"TIME"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"TIME",yyline,yycolumn);
     tokens.add(t);
@@ -200,7 +294,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"SLEEP"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"SLEEP",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "program"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"PROGRAM",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"PROGRAM"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"PROGRAM",yyline,yycolumn);
     tokens.add(t);
@@ -212,7 +318,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"ELSE"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"ELSE",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "cicle"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"CICLE",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"CICLE"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"CICLE",yyline,yycolumn);
     tokens.add(t);
@@ -224,7 +342,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"DEFINE"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"DEFINE",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "end"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"END",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"END"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"END",yyline,yycolumn);
     tokens.add(t);
@@ -236,7 +366,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"SEGMENT"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"SEGMENT",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "init"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"INIT",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"INIT"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"INIT",yyline,yycolumn);
     tokens.add(t);
@@ -248,7 +390,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"BIGINT"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"BIGINT",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "population"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"POPULATION",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"POPULATION"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"POPULATION",yyline,yycolumn);
     tokens.add(t);
@@ -260,7 +414,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"ROUTE"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"ROUTE",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "growth"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"GROWTH",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"GROWTH"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"GROWTH",yyline,yycolumn);
     tokens.add(t);
@@ -272,7 +438,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"START"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"START",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "call"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"CALL",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"CALL"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"CALL",yyline,yycolumn);
     tokens.add(t);
@@ -284,7 +462,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"SMALLINT"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"SMALLINT",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "tinyint"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"TINYINT",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"TINYINT"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"TINYINT",yyline,yycolumn);
     tokens.add(t);
@@ -296,7 +486,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"RESOURCE"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"RESOURCE",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "economy"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"ECONOMY",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"ECONOMY"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"ECONOMY",yyline,yycolumn);
     tokens.add(t);
@@ -308,7 +510,19 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     tokens.add(t);
     return t;
 }
+"RET"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"RET",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 "simulation"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"SIMULATION",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"SIMULATION"  {
     contador++;
     Yytoken t = new Yytoken(contador,yytext(),"SIMULATION",yyline,yycolumn);
     tokens.add(t);
@@ -508,7 +722,91 @@ COMENTARIO={EXP_COMENTARIO}({IDENTIFICADOR}|{NUMERO}|{ESPACIO}|{TABULADOR})*{EXP
     return t;
 }
 
+Elementos no validos
 
+"\u0024"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"signo_pesos",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"\u002E"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"punto",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+
+"\u005F"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"guion_bajo",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+
+"\u0023"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"gato",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+"\u0025"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"Porciento",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+
+"\u00BF"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"Apertura_interrogacion",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+
+"\u003F"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"Cierre_interrogacion",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+
+"\u0027"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"Apostrofe",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+
+
+"\u005E"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"Acento circunflejo",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+
+"\u0040"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"Arroba",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+
+"\u0060"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"Acento grave",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
+
+
+"\u007E"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"Virgulilla",yyline,yycolumn);
+    tokens.add(t);
+    return t;
+}
 {ESPACIO} {
  	//ignorar
 }

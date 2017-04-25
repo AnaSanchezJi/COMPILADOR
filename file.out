@@ -1,1 +1,2 @@
-Token#1: int|  Componente Lexico:  |id [Linea: 1]
+Token#1: destroy|  Componente Lexico:  |DESTROY [Linea: 1]
+Token#2: DESTROY|  Componente Lexico:  |DESTROY [Linea: 2]
