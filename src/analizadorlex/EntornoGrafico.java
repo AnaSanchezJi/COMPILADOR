@@ -1,13 +1,17 @@
 package analizadorlex;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -53,8 +57,10 @@ public class EntornoGrafico extends javax.swing.JFrame {
         jButton_cargar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -64,6 +70,8 @@ public class EntornoGrafico extends javax.swing.JFrame {
 
         jTextPane1.setFont(new java.awt.Font("Courier New", 1, 12)); // NOI18N
         jScrollPane3.setViewportView(jTextPane1);
+
+        jDesktopPane1.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -81,7 +89,6 @@ public class EntornoGrafico extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
-        jDesktopPane1.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -143,11 +150,32 @@ public class EntornoGrafico extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
+        jMenuItem4.setText("Abrir");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
         jMenuItem1.setText("Nuevo Codigo");
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Guardar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
+
+        jMenuItem5.setText("Guardar como...");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5);
 
         jMenuBar1.add(jMenu1);
 
@@ -205,7 +233,7 @@ public class EntornoGrafico extends javax.swing.JFrame {
         Compilado c2 = new Compilado(); 
         c2.cargaLexemas(2);
         
-        File archivo = new File("C:\\Users\\oFFICEdEPOT\\Desktop\\COMPILADOR\\file.out"); 
+        File archivo = new File("file.out"); 
         try{
             BufferedReader leer=new BufferedReader(new FileReader(archivo));
             String linea=leer.readLine();
@@ -218,6 +246,83 @@ public class EntornoGrafico extends javax.swing.JFrame {
         }
        
     }//GEN-LAST:event_jButton_cargarActionPerformed
+
+    private String abrirArchivo(String path){
+        String texto="",linea;
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            fr = new FileReader(new File(path));
+            br = new BufferedReader(fr);
+            while((linea=br.readLine())!=null){
+                linea.replaceAll("\n","");
+                texto+=linea+"\n";   
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(EntornoGrafico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(EntornoGrafico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            try{                    
+                if( null != fr )fr.close();                  
+            }catch (IOException e2){}
+        }
+       
+        return texto;
+    }
+    
+    private void guardar (String ruta){
+        path=ruta;
+        BufferedWriter bw;
+        try {
+            bw = new BufferedWriter(new FileWriter(path));
+            bw.write(jTextPane1.getText().replaceAll("\n", "\r\n"));
+            bw.close();
+        } catch (IOException ex) {
+            //Logger.getLogger(EntornoGrafico.class.getName()).log(Level.SEVERE, null, ex);
+            guardarArchivoComo();
+        }
+    }
+    
+    private void guardarArchivoComo(){
+        javax.swing.JFileChooser jF1= new javax.swing.JFileChooser(); 
+        String ruta = ""; 
+        try{ 
+            if(jF1.showSaveDialog(null)==jF1.APPROVE_OPTION){ 
+                ruta = jF1.getSelectedFile().getAbsolutePath(); 
+                if(new File(ruta).exists()) { 
+                    if(JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(this,"Ya existe un archivo con este nombre,\n¿Desea remplazarlo?","Titulo",JOptionPane.YES_NO_OPTION)){ 
+                        guardar(ruta);
+                    } 
+                }
+                File file = new File(ruta);
+                file.createNewFile();
+                guardar(ruta);
+            } 
+        }catch (Exception ex){ 
+            showMessageDialog(null,"Ha ocurrido un error al momento de intentar guardar el archivo");
+        } 
+        
+    }
+        
+    //Abrir
+    String path="";
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+         JFileChooser archivo = new JFileChooser();
+           int opcion = archivo.showOpenDialog(this);
+           if(opcion==JFileChooser.APPROVE_OPTION)
+               path=archivo.getSelectedFile().getPath();
+               jTextPane1.setText(abrirArchivo(path));
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        guardar(path);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        guardarArchivoComo();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,6 +375,8 @@ public class EntornoGrafico extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
