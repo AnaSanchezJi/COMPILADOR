@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -107,6 +108,7 @@ public class EntornoGrafico extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        textarea_salida.setEditable(false);
         textarea_salida.setColumns(20);
         textarea_salida.setRows(5);
         jScrollPane2.setViewportView(textarea_salida);
@@ -160,6 +162,7 @@ public class EntornoGrafico extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        textarea_salida1.setEditable(false);
         textarea_salida1.setColumns(20);
         textarea_salida1.setRows(5);
         jScrollPane4.setViewportView(textarea_salida1);
@@ -188,6 +191,11 @@ public class EntornoGrafico extends javax.swing.JFrame {
         jMenu1.add(jMenuItem4);
 
         jMenuItem1.setText("Nuevo Codigo");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Guardar");
@@ -254,21 +262,14 @@ public class EntornoGrafico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_compilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_compilarActionPerformed
-        
-        
         Compilado c2 = new Compilado(); 
         c2.generarArchivo("entrada.txt",jTextPane1.getText());
-        
-        
-        
     }//GEN-LAST:event_jButton_compilarActionPerformed
 
     private void jButton_cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_cargarActionPerformed
         textarea_salida.setText("");
-        
         Compilado c2 = new Compilado(); 
         c2.cargaLexemas(2);
-        
         File archivo = new File("file.out"); 
         try{
             BufferedReader leer=new BufferedReader(new FileReader(archivo));
@@ -277,9 +278,7 @@ public class EntornoGrafico extends javax.swing.JFrame {
                 textarea_salida.append(linea+"\n");
                 linea=leer.readLine();
             }
-        }catch(Exception e){
-           
-        }
+        }catch(Exception e){}
        
     }//GEN-LAST:event_jButton_cargarActionPerformed
 
@@ -288,6 +287,10 @@ public class EntornoGrafico extends javax.swing.JFrame {
         FileReader fr = null;
         BufferedReader br = null;
         try {
+            if(!path.substring(path.length()-4).equals(".txt")){
+                JOptionPane.showMessageDialog(null, "No se puede abrir un archivo con esa extensión.","Error",JOptionPane.ERROR_MESSAGE);
+                return "";
+            }
             fr = new FileReader(new File(path));
             br = new BufferedReader(fr);
             while((linea=br.readLine())!=null){
@@ -295,7 +298,8 @@ public class EntornoGrafico extends javax.swing.JFrame {
                 texto+=linea+"\n";   
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(EntornoGrafico.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(EntornoGrafico.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No existe ese archivo\nCompruebe el nombre del archivo e intentelo de nuevo","Error",JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex) {
             Logger.getLogger(EntornoGrafico.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -307,13 +311,14 @@ public class EntornoGrafico extends javax.swing.JFrame {
        
         return texto;
     }
-    
+    String guardar = "";
     private void guardar (String ruta){
         path=ruta;
         BufferedWriter bw;
         try {
             bw = new BufferedWriter(new FileWriter(path));
             bw.write(jTextPane1.getText().replaceAll("\n", "\r\n"));
+            guardar=jTextPane1.getText();
             bw.close();
         } catch (IOException ex) {
             //Logger.getLogger(EntornoGrafico.class.getName()).log(Level.SEVERE, null, ex);
@@ -322,16 +327,23 @@ public class EntornoGrafico extends javax.swing.JFrame {
     }
     
     private void guardarArchivoComo(){
-        javax.swing.JFileChooser jF1= new javax.swing.JFileChooser(); 
+        javax.swing.JFileChooser jF1= new javax.swing.JFileChooser();
+        jF1.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
+        
+        if(path.length()!=0)
+            jF1.setCurrentDirectory(new File(path));
+        
         String ruta = ""; 
         try{ 
             if(jF1.showSaveDialog(null)==jF1.APPROVE_OPTION){ 
                 ruta = jF1.getSelectedFile().getAbsolutePath(); 
-                if(new File(ruta).exists()) { 
-                    if(JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(this,"Ya existe un archivo con este nombre,\n¿Desea remplazarlo?","Titulo",JOptionPane.YES_NO_OPTION)){ 
+                ruta = jF1.getSelectedFile().toString();
+                if (!ruta .endsWith(".txt"))
+                    ruta += ".txt";
+                if(new File(ruta).exists()) 
+                    if(JOptionPane.OK_OPTION == JOptionPane.showConfirmDialog(this,"Ya existe un archivo con este nombre,\n¿Desea remplazarlo?","Titulo",JOptionPane.YES_NO_OPTION)) 
                         guardar(ruta);
-                    } 
-                }
+                    
                 File file = new File(ruta);
                 file.createNewFile();
                 guardar(ruta);
@@ -346,6 +358,7 @@ public class EntornoGrafico extends javax.swing.JFrame {
     String path="";
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
          JFileChooser archivo = new JFileChooser();
+         archivo.setFileFilter(new FileNameExtensionFilter(".txt", "txt"));
            int opcion = archivo.showOpenDialog(this);
            if(opcion==JFileChooser.APPROVE_OPTION)
                path=archivo.getSelectedFile().getPath();
@@ -359,6 +372,23 @@ public class EntornoGrafico extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         guardarArchivoComo();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        if (!guardar.equals(jTextPane1.getText())){
+            int opcion = JOptionPane.showConfirmDialog(this,"Desea guardar el archivo creado","",JOptionPane.YES_NO_CANCEL_OPTION);
+            if(JOptionPane.OK_OPTION == opcion){
+                guardarArchivoComo();
+                jTextPane1.setText("");
+            }
+            else if(opcion== JOptionPane.NO_OPTION)
+                jTextPane1.setText("");
+        }
+        else
+            jTextPane1.setText("");
+     
+        path="";
+        guardar="";
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
