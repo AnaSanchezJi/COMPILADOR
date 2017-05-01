@@ -828,3 +828,73 @@ Elementos no validos
     //almacenarerror()
     return t;
 }
+"\u0024"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"signo_pesos",yyline,yycolumn);
+    tokens.add(t);
+    //almacenarerror()
+    return t;
+}
+"\u005b"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"Apertura_corchete",yyline,yycolumn);
+    tokens.add(t);
+    //almacenarerror()
+    return t;
+}
+"\u005c"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"diagonal_inversa",yyline,yycolumn);
+    tokens.add(t);
+    //almacenarerror()
+    return t;
+}
+"\u007e"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"virgulilla",yyline,yycolumn);
+    tokens.add(t);
+    //almacenarerror()
+    return t;
+}
+"\u00a1"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"apertura_exclamacion",yyline,yycolumn);
+    tokens.add(t);
+    //almacenarerror()
+    return t;
+}
+"\u00a8"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"dieresis",yyline,yycolumn);
+    tokens.add(t);
+    //almacenarerror()
+    return t;
+}
+"\u00ac"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"signo_negacion",yyline,yycolumn);
+    tokens.add(t);
+    //almacenarerror()
+    return t;
+}
+"\u00B0"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"signo_grado",yyline,yycolumn);
+    tokens.add(t);
+    //almacenarerror()
+    return t;
+}
+"\u00b4"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"acento_agudo",yyline,yycolumn);
+    tokens.add(t);
+    //almacenarerror()
+    return t;
+}
+"\u00bf"  {
+    contador++;
+    Yytoken t = new Yytoken(contador,yytext(),"apertura_interrogacion",yyline,yycolumn);
+    tokens.add(t);
+    //almacenarerror()
+    return t;
+}
